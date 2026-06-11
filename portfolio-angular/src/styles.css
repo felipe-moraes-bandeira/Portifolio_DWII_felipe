@@ -1,1 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FUNDO GLOBAL */
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  color: #f5f5f5;
+
+  background-color: #0a0a0a;
+
+  /* Fibra de carbono */
+  background-image:
+    linear-gradient(
+      45deg,
+      #111 25%,
+      transparent 25%,
+      transparent 75%,
+      #111 75%
+    ),
+    linear-gradient(
+      45deg,
+      #111 25%,
+      transparent 25%,
+      transparent 75%,
+      #111 75%
+    );
+
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* TITULOS GLOBAIS */
+h1,
+h2,
+h3 {
+  color: #d90429;
+}
+
+/* CARDS MATERIAL */
+mat-card {
+  background: #151515 !important;
+  color: white !important;
+
+  border-left: 5px solid #d90429;
+
+  border-radius: 12px !important;
+
+  box-shadow:
+    0 0 15px rgba(0,0,0,.6),
+    0 0 10px rgba(217,4,41,.15);
+
+  transition: .3s;
+}
+
+mat-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 0 25px rgba(217,4,41,.25),
+    0 10px 25px rgba(0,0,0,.6);
+}

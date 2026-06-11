@@ -1,0 +1,17 @@
+mat-card {
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+mat-card-title {
+  font-size: 2rem;
+}
+
+mat-card-subtitle {
+  color: #cccccc;
+}
+
+p {
+  line-height: 1.8;
+  margin-bottom: 16px;
+}

@@ -1,21 +1,78 @@
-<main>
-  <div class="introducao">
+<mat-sidenav-container class="container-app">
 
-    <h1>{{ title() }}</h1>
+ <mat-sidenav #menu mode="over" [opened]="false">
 
-    <p>
-      Bem-vindo ao meu portfólio desenvolvido com Angular.
-    </p>
+    <h2 class="titulo-menu">Meu Portfólio</h2>
 
-    <p>
-      Meu nome é <span class="destaque">Felipe Moraes Bandeira</span>,
-      tenho 16 anos e sou estudante do curso Técnico em Informática do IFPR.
-    </p>
+    <a mat-button routerLink="/" (click)="menu.close()">
+      Início
+    </a>
 
-    <p>
-      Neste portfólio apresentarei os projetos desenvolvidos durante a disciplina
-      de Desenvolvimento Web II e minha evolução ao longo do ano.
-    </p>
+    <a mat-button routerLink="/sobre" (click)="menu.close()">
+      Sobre
+    </a>
 
-  </div>
-</main>
+    <a mat-button routerLink="/projetos" (click)="menu.close()">
+      Projetos
+    </a>
+
+    <a mat-button routerLink="/contato" (click)="menu.close()">
+      Contato
+    </a>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <mat-toolbar>
+
+      <button mat-icon-button (click)="menu.toggle()">
+        ☰
+      </button>
+
+      <span>Meu Portfólio</span>
+
+      <span class="espacador"></span>
+
+      <div class="menu-desktop">
+
+        <a
+          mat-button
+          routerLink="/"
+          routerLinkActive="ativo"
+          [routerLinkActiveOptions]="{ exact: true }">
+          Início
+        </a>
+
+        <a
+          mat-button
+          routerLink="/sobre"
+          routerLinkActive="ativo">
+          Sobre
+        </a>
+
+        <a
+          mat-button
+          routerLink="/projetos"
+          routerLinkActive="ativo">
+          Projetos
+        </a>
+
+        <a
+          mat-button
+          routerLink="/contato"
+          routerLinkActive="ativo">
+          Contato
+        </a>
+
+      </div>
+
+    </mat-toolbar>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
