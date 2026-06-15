@@ -4,12 +4,12 @@ header('Access-Control-Allow-Origin: *');
 
 require __DIR__ . '/../conexao.php';
 
-$sql = "SELECT id, nome, descricao, ano_criacao
+$sql = "SELECT id, nome, descricao, ano_criacao, categoria
         FROM tecnologias
         WHERE status = 'ativo'
         ORDER BY categoria, nome";
 
 $tecnologias = $pdo->query($sql)->fetchAll();
 
-echo json_encode($tecnologias);
+echo json_encode($tecnologias, JSON_PRETTY_PRINT);
 ?>
