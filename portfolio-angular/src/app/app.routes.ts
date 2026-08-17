@@ -1,3 +1,4 @@
+import { Catalogo } from './catalogo/catalogo';
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { Sobre } from './sobre/sobre';
@@ -9,4 +10,5 @@ export const routes: Routes = [
   { path: 'sobre', component: Sobre },
   { path: 'projetos', component: Projetos },
   { path: 'contato', component: Contato },
+    { path: 'catalogo', component: Catalogo },
 ];
