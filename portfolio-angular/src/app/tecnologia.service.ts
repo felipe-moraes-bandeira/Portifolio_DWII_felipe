@@ -13,7 +13,7 @@ export interface Tecnologia {
 @Injectable({ providedIn: 'root' })
 export class TecnologiaService {
   private http = inject(HttpClient);
-  private url = 'https://SEU-CODESPACE-8000.app.github.dev/api/tecnologias.php';
+  private url = 'https://special-goggles-696p4pqr9wr7249p7-8000.app.github.dev/api/tecnologias.php';
 
   listar(): Observable<Tecnologia[]> {
     return this.http.get<Tecnologia[]>(this.url);
