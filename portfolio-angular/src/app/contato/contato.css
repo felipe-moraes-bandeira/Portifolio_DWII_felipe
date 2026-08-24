@@ -1,4 +1,323 @@
-mat-card {
-  max-width: 700px;
+/* =========================================================
+   CONTATO - Portfólio Angular
+   Tema: Preto + Vermelho + Fibra de Carbono
+   ========================================================= */
+
+.contato-container {
+  max-width: 850px;
   margin: 40px auto;
+  padding: 20px;
+}
+
+/* Cabeçalho */
+
+.contato-titulo {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contato-titulo span {
+  color: #d90429;
+}
+
+.contato-subtitulo {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+
+/* Card do formulário */
+
+.contato-card {
+  background:
+    linear-gradient(
+      135deg,
+      #1a1a1a 0%,
+      #111111 50%,
+      #181818 100%
+    );
+
+  border: 1px solid #333;
+  border-left: 4px solid #d90429;
+
+  border-radius: 12px;
+  padding: 35px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(217, 4, 41, 0.08);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* Detalhe vermelho no topo */
+
+.contato-card::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    #d90429,
+    #ff1744,
+    transparent
+  );
+}
+
+/* Campos */
+
+.campo {
+  margin-bottom: 22px;
+}
+
+.campo label {
+  display: block;
+
+  color: #ffffff;
+
+  font-weight: 700;
+  font-size: 14px;
+
+  margin-bottom: 8px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.campo label::after {
+  content: " *";
+  color: #d90429;
+}
+
+/* Inputs */
+
+.campo input,
+.campo textarea {
+  width: 100%;
+
+  padding: 13px 15px;
+
+  background: #0b0b0b;
+
+  color: #ffffff;
+
+  border: 1px solid #3a3a3a;
+  border-radius: 7px;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.25s;
+}
+
+/* Placeholder */
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+  color: #666;
+}
+
+/* Foco */
+
+.campo input:focus,
+.campo textarea:focus {
+  border-color: #d90429;
+
+  box-shadow:
+    0 0 0 2px rgba(217, 4, 41, 0.12),
+    0 0 15px rgba(217, 4, 41, 0.15);
+}
+
+/* Textarea */
+
+.campo textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* Mensagem de erro */
+
+.erro-campo {
+  margin-top: 6px;
+
+  color: #ff4d6d;
+
+  font-size: 13px;
+}
+
+/* Botão */
+
+.btn-enviar {
+  width: 100%;
+
+  padding: 14px 20px;
+
+  background: #d90429;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 7px;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  box-shadow:
+    0 0 15px rgba(217, 4, 41, 0.25);
+}
+
+.btn-enviar:hover {
+  background: #ef233c;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 25px rgba(217, 4, 41, 0.45);
+}
+
+/* Botão desabilitado */
+
+.btn-enviar:disabled {
+  background: #555;
+  color: #aaa;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+/* Mensagem de sucesso */
+
+.alerta-sucesso {
+  margin-bottom: 20px;
+
+  padding: 15px 18px;
+
+  background: #102218;
+
+  border-left: 4px solid #36d46f;
+
+  border-radius: 6px;
+
+  color: #72f0a0;
+
+  font-weight: 600;
+}
+
+/* Mensagem de erro */
+
+.alerta-erro {
+  margin-bottom: 20px;
+
+  padding: 15px 18px;
+
+  background: #251014;
+
+  border-left: 4px solid #d90429;
+
+  border-radius: 6px;
+
+  color: #ff6b81;
+
+  font-weight: 600;
+}
+
+/* Informações abaixo do formulário */
+
+.contato-info {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 15px;
+
+  margin-top: 25px;
+}
+
+.info-item {
+  background: #151515;
+
+  border: 1px solid #292929;
+
+  border-radius: 8px;
+
+  padding: 18px;
+
+  text-align: center;
+
+  transition: 0.25s;
+}
+
+.info-item:hover {
+  border-color: #d90429;
+
+  transform: translateY(-3px);
+}
+
+.info-item .icone {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.info-item h3 {
+  color: #ffffff;
+
+  font-size: 15px;
+
+  margin-bottom: 5px;
+}
+
+.info-item p {
+  color: #888;
+
+  font-size: 13px;
+
+  margin: 0;
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .contato-container {
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .contato-titulo {
+    font-size: 28px;
+  }
+
+  .contato-card {
+    padding: 25px 20px;
+  }
+
+  .contato-info {
+    grid-template-columns: 1fr;
+  }
 }
