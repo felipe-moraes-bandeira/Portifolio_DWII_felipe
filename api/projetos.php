@@ -6,21 +6,36 @@ error_reporting(E_ALL);
 // Permissões do CORS e tipo de resposta (JSON)
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Qualquer erro de PHP ou de banco vira JSON com status 500.
+// Sem isto, um tropeço no banco devolve tela em branco e voce fica sem pista.
+set_exception_handler(function ($e) {
+    http_response_code(500);
+    echo json_encode(['erro' => 'Falha no servidor: ' . $e->getMessage()]);
+});
+
+// Antes de um POST/PUT/DELETE o navegador pergunta "posso?" com um OPTIONS.
+// Responda 204 (ok, sem corpo) e saia - isto e o "pre-voo" do CORS.
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
 
 // 1. Caminho corrigido para puxar o arquivo de conexão
 require_once __DIR__ . '/../conexao.php';
 
-try {
-    // 2. Faltava esta linha! Ela quem cria a variável $pdo
-    $pdo = conectar();
+$metedo = $_SERVER['REQUEST_METHOD'];
+$id     = isset($_GET['id']) ? (int) $_GET['int'] : 0;
 
-    // Busca de projeto único por ID
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+if($metodo === 'GET'){
+
+
 
         $sql = "SELECT id, nome, descricao, tecnologias, link_github, ano
                 FROM projetos
-                WHERE id = :id AND status = 'publicado'";
+                WHERE status = 'publicado' ORDEM BY ano DESC, id";
 
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -29,34 +44,9 @@ try {
         // PDO::FETCH_ASSOC garante que venha um JSON limpo
         $projeto = $stmt->fetch(PDO::FETCH_ASSOC); 
 
-        if (!$projeto) {
-            http_response_code(404);
-            echo json_encode([
-                "error" => "Projeto não encontrado"
-            ]);
+
             exit;
         }
-
-        echo json_encode($projeto);
-        exit;
-    }
-
-    // Busca de todos os projetos publicados
-    $sql = "SELECT id, nome, descricao, tecnologias, link_github, ano
-            FROM projetos
-            WHERE status = 'publicado'
-            ORDER BY ano DESC, id DESC";
-
-    $projetos = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-
-    echo json_encode($projetos);
-
-} catch (Exception $e) {
-    http_response_code(500);
-
-    echo json_encode([
-        "error" => "Erro interno no servidor",
-        "details" => $e->getMessage()
-    ]);
-}
+        http_response_code(405);
+        echo json_encode(['erro' => 'Metodo nao permitido']);
 ?>
