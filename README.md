@@ -70,3 +70,16 @@ src/
 │
 ├── styles.css
 └── main.ts
+API em Node (aula 21)
+
+Uma segunda versao da API, em javaScript na pasta 'ai-node/'.
+O contrato de 'GET/api/projetos' e o mesmo do 'api/projetps.php'.
+
+como rodar:
+cd api-node
+npm install
+node server.js
+
+A API sobe em http//localhost:3000. teste com:
+
+curl -i http//localhost:3000/api/projetos
