@@ -56,7 +56,7 @@ res.json({mensagem: 'Projeto atualizado'});
 }
 });
 
-app.delete ('/api/projetos/:id', async (req, res) =>{
+app.delete ('/api/projetos/:id', autenticar, async (req, res) =>{
 
     try{
         const [resultado] = await pool.execute('DELETE FROM projetos WHERE id = ?', [req.params.id]);

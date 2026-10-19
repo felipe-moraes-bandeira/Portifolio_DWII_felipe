@@ -18,10 +18,8 @@ set_exception_handler(function ($e) {
     http_response_code(500);
 
     echo json_encode([
-        'erro' => 'Falha no servidor: ' . $e->getMessage()
-    ]);
+        'erro' => 'Falha no servidor: ' . $e->getMessage()]);
 
-    exit;
 });
 
 // Requisição OPTIONS do CORS
