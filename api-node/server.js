@@ -3,7 +3,10 @@ const cors = require('cors');
 const app = express();
 const PORTA = 3000;
 const pool = require('./db');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
+const SEGREDO = 'troque-por-uma-frase-longa-que-so-voce-sabe';
 app.use(cors());
 app.use(express.json());
 const projetos = [
@@ -32,7 +35,7 @@ const projetos = [
         ano: 2026
     }
 ];
-app.put('/api/projetos/:id', async (req, res) => {
+app.put('/api/projetos/:id', autenticar, async (req, res) => {
 
 try {
     const dados = req.body;
@@ -68,7 +71,7 @@ app.delete ('/api/projetos/:id', async (req, res) =>{
 
 
 
-app.post('/api/projetos', async (req, res) => {
+app.post('/api/projetos', autenticar, async (req, res) => {
     try {
         const dados = req.body;
         console.log(dados);
@@ -172,7 +175,52 @@ app.get('/api/tecnologias', async (req, res) => {
     }
 });
 
+function autenticar (req, res, next) {
+    const cabecalho = req.headers.authorization ?? '';
+    const token = cabecalho.replace('Bearer ', '');
+    if (!token) {
+        return res.status(401).json({erro: 'Token ausente'});
+    }
+    try{
+        req.usuario = jwt.verify(token, SEGREDO);
+        next();
+    } catch (erro) {
+        return res.status(401).json({erro: 'token invalido ou expirado' });
+    }
+}
 
+app.post('/api/login', async (req, res) => {
+    try {
+        const dados = req.body; // Espaço adicionado aqui
+        if (!dados || !dados.email || !dados.senha) {
+            return res.status(400).json({ erro: 'Informe email e senha' });
+        }
+
+        const [linhas] = await pool.execute(
+            'SELECT id, email, senha_hash FROM usuario WHERE email = ?',
+            [dados.email]
+        );
+        const usuario = linhas[0];
+        if (!usuario) {
+            return res.status(401).json({ erro: 'Email ou senha invalida' });
+        }
+
+        const confere = await bcrypt.compare(dados.senha, usuario.senha_hash);
+        if (!confere) {
+            return res.status(401).json({ erro: 'Email ou senha invalidos' });
+        }
+
+        const token = jwt.sign(
+            { id: usuario.id, email: usuario.email },
+            SEGREDO,
+            { expiresIn: '2h' }
+        );
+
+        res.json({ token });
+    } catch (erro) {
+        res.status(500).json({ erro: 'Falha no servidor: ' + erro.message });
+    }
+});
 app.get('/', (req, res) => {
     res.send('API do Portfolio em Node: no ar');
 });
