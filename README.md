@@ -99,3 +99,13 @@ rotas que leem do 'dwii_db':
 curl -i http://localhost:3000/api/projetos
 curl -i http://localhost:3000/api/projetos/5
 curl -i http://localhost:3000/api/tecnologias
+
+
+aula 24: a tranca
+quem escreve precisa de um token. antes do primeiro uso a tabela e o dono:
+
+
+sudo mariadb dwii_db < sql/usuario.sql
+cd api-node 
+npm install 
+node criar-usuario.js dono@portfolio.dev portfolio2026
