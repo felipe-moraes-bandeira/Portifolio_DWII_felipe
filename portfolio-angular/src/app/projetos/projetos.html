@@ -1,24 +1,106 @@
-@if (carregando) {
-  <p>Carregando projetos...</p>
-}
-@if (erro) {
-  <p>{{ erro }}</p>
-}
-@if (!carregando && projetos.length === 0) {
-  <p>Nenhum projeto publicado ainda.</p>
-}
 
-@for (p of projetos; track p.id) {
-  <mat-card style="margin-bottom: 12px;">
-    <mat-card-header>
-      <mat-card-title>{{ p.nome }}</mat-card-title>
-      <mat-card-subtitle>{{ p.tecnologias }} - {{ p.ano }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>{{ p.descricao }}</mat-card-content>
-  <mat-card-actions>
-  @if (p.link_github) {
-    <a mat-button [href]="p.link_github" target="_blanck" rel="noopener">Ver no GitHub</a>
+<section class="github-section">
+  <header class="github-header">
+    <div>
+      <span class="github-eyebrow">GITHUB / REPOSITÓRIOS</span>
+      <h2>Meus projetos<span>.</span></h2>
+      <p>
+        Meus repositórios públicos, sincronizados diretamente com o GitHub.
+      </p>
+    </div>
+
+    <a
+      class="github-profile"
+      href="https://github.com/felipe-moraes-bandeira"
+      target="_blank"
+      rel="noopener noreferrer">
+      <span>Ver perfil</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+  </header>
+
+  @if (carregandoGithub) {
+    <p class="github-status">Carregando repositórios...</p>
+  } @else if (erroGithub) {
+    <div class="github-status github-error">
+      <p>{{ erroGithub }}</p>
+      <a
+        href="https://github.com/felipe-moraes-bandeira"
+        target="_blank"
+        rel="noopener noreferrer">
+        Abrir GitHub diretamente
+      </a>
+    </div>
+  } @else if (repositoriosGithub.length === 0) {
+    <p class="github-status">
+      Nenhum repositório público disponível para exibição.
+    </p>
+  } @else {
+    <div class="github-summary">
+      <span>
+        <strong>{{ repositoriosGithub.length }}</strong>
+        repositórios encontrados
+      </span>
+      <span class="github-live">
+        <span class="github-dot"></span>
+        Dados do GitHub
+      </span>
+    </div>
+
+    <div class="github-grid">
+      @for (repo of repositoriosGithub; track repo.id) {
+        <article class="github-card">
+          <div class="github-card-top">
+            <span class="github-repo-icon" aria-hidden="true">⌘</span>
+
+            <a
+              class="github-open"
+              [href]="repo.html_url"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'Abrir repositório ' + repo.name">
+              ↗
+            </a>
+          </div>
+
+          <h3>
+            <a
+              [href]="repo.html_url"
+              target="_blank"
+              rel="noopener noreferrer">
+              {{ repo.name }}
+            </a>
+          </h3>
+
+          <p class="github-description">
+            {{ repo.description || 'Este repositório não possui descrição.' }}
+          </p>
+
+          <div class="github-meta">
+            @if (repo.language) {
+              <span class="github-language">
+                <span class="language-dot"></span>
+                {{ repo.language }}
+              </span>
+            } @else {
+              <span class="github-language">Linguagem não informada</span>
+            }
+
+            <span title="Estrelas">★ {{ repo.stargazers_count }}</span>
+            <span title="Forks">⑂ {{ repo.forks_count }}</span>
+          </div>
+
+          <footer class="github-card-footer">
+            <span>Atualizado em {{ formatarData(repo.updated_at) }}</span>
+            <a
+              [href]="repo.html_url"
+              target="_blank"
+              rel="noopener noreferrer">
+              Ver código →
+            </a>
+          </footer>
+        </article>
+      }
+    </div>
   }
-  </mat-card-actions>
-  </mat-card>
-}
+</section>

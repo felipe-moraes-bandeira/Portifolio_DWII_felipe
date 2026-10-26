@@ -1,5 +1,10 @@
+
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  RouterOutlet,
+  RouterLink,
+  RouterLinkActive
+} from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -25,4 +29,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './app.css'
 })
 export class App {
+  readonly anoAtual = new Date().getFullYear();
 }

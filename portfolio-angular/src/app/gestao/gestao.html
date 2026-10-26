@@ -1,49 +1,217 @@
+
 <section class="gestao">
-<h2>Área de Gestão</h2>
-
-<!-- O MESMO formulario adiciona e edita. Quem decide e o editandoId. -->
-<form [formGroup]="form" (ngSubmit)="salvar()">
-<h3>{{ editandoId ? 'Editar projeto' : 'Adicionar projeto' }}</h3>
-
-<label for="nome">Nome do projeto</label>
-<input id="nome" formControlName="nome">
-@if (form.controls.nome.touched && form.controls.nome.invalid) {
-    <p class="erro-campo">⚠️ Informe o nome do projeto (mínimo 3 letras).</p>
-}
-
-<label for="descricao">Descrição</label>
-<textarea id="descricao" formControlName="descricao" rows="3"></textarea>
-
-<label for="tecnologias">Tecnologias</label>
-<input id="tecnologias" formControlName="tecnologias">
-
-<label for="link_github">Link do Github</label>
-<input id="link_github" formControlName="link_github">
-
-<label for="ano">Ano</label>
-<input id="ano" type="number" formControlName="ano">
-@if (form.controls.ano.touched && form.controls.ano.invalid) {
-    <p class="erro-campo">⚠️ Informe o ano do projeto (ex.: 2026).</p>
-}
-<button type="submit" [disabled]="salvando">
-    {{ salvando ? 'Salvando...' : (editandoId ? 'Salvar alterações' : 'Adicionar projeto') }}
-</button>
-</form>
-
-<h3>Projetos cadastrados</h3>
-
-@if (carregando) {
-    <p>Carregando projetos...</p>
-}
-@if (erro) {
-    <p class="erro-campo">⚠️ {{ erro }}</p>
-}
-
-@for (p of projetos; track p.id) {
-    <div class="linha-projeto">
-        <span>{{ p.nome }} ({{ p.ano }})</span>
-        <button type="button" (click)="editar(p)">Editar</button>
-        <button type="button" (click)="excluir(p)">Excluir</button>
+  <header class="cabecalho-gestao">
+    <div>
+      <span class="etiqueta">MCLAREN TURBO UI / ADMIN</span>
+      <h2>Área de Gestão</h2>
+      <p class="gestao-descricao">
+        Gerencie seus projetos, acompanhe os números e mantenha seu portfólio atualizado.
+      </p>
     </div>
-}
+
+    <button type="button" class="botao-secundario" (click)="carregar()"
+      [disabled]="carregando">
+      ↻ Atualizar
+    </button>
+  </header>
+
+  @if (erro) {
+    <div class="mensagem mensagem-erro" role="alert">{{ erro }}</div>
+  }
+
+  @if (sucesso) {
+    <div class="mensagem mensagem-sucesso" role="status">{{ sucesso }}</div>
+  }
+
+  <section class="dashboard" aria-label="Estatísticas do portfólio">
+    <article class="cartao-estatistica destaque">
+      <span class="estatistica-icone">▦</span>
+      <p>Total de projetos</p>
+      <strong>{{ projetos.length }}</strong>
+      <small>Projetos cadastrados na API</small>
+    </article>
+
+    <article class="cartao-estatistica">
+      <span class="estatistica-icone">⌘</span>
+      <p>Tecnologias utilizadas</p>
+      <strong>{{ totalTecnologias }}</strong>
+      <small>Tecnologias distintas</small>
+    </article>
+
+    <article class="cartao-estatistica">
+      <span class="estatistica-icone">↗</span>
+      <p>Projetos de {{ anoAtual }}</p>
+      <strong>{{ projetosRecentes }}</strong>
+      <small>Cadastrados para este ano</small>
+    </article>
+  </section>
+
+  <section class="painel-tecnologias">
+    <div class="titulo-secao">
+      <div>
+        <span class="etiqueta">STACK</span>
+        <h3>Tecnologias mais utilizadas</h3>
+      </div>
+    </div>
+
+    @if (tecnologiasMaisUsadas.length > 0) {
+      <div class="lista-tecnologias">
+        @for (tec of tecnologiasMaisUsadas; track tec.nome) {
+          <div class="tecnologia-item">
+            <div class="tecnologia-info">
+              <span>{{ tec.nome }}</span>
+              <strong>{{ tec.quantidade }}</strong>
+            </div>
+            <div class="barra-fundo">
+              <div class="barra-progresso"
+                [style.width.%]="(tec.quantidade / projetos.length) * 100">
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <p class="texto-vazio">Cadastre projetos com tecnologias para visualizar os indicadores.</p>
+    }
+  </section>
+
+  <section class="formulario-gestao">
+    <div class="titulo-secao">
+      <div>
+        <span class="etiqueta">{{ editandoId !== null ? 'EDITAR REGISTRO' : 'NOVO REGISTRO' }}</span>
+        <h3>{{ editandoId !== null ? 'Editar projeto' : 'Cadastrar projeto' }}</h3>
+      </div>
+
+      @if (editandoId !== null) {
+        <button type="button" class="botao-secundario" (click)="cancelarEdicao()">
+          Cancelar edição
+        </button>
+      }
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="salvar()" novalidate>
+      <div class="campo">
+        <label for="nome">Nome do projeto *</label>
+        <input id="nome" type="text" formControlName="nome"
+          placeholder="Ex.: Meu portfólio Angular" />
+        @if (form.controls.nome.touched && form.controls.nome.hasError('required')) {
+          <small class="erro-campo">O nome é obrigatório.</small>
+        }
+        @if (form.controls.nome.touched && form.controls.nome.hasError('minlength')) {
+          <small class="erro-campo">Informe pelo menos 3 caracteres.</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" formControlName="descricao"
+          placeholder="Descreva brevemente seu projeto"></textarea>
+      </div>
+
+      <div class="campo">
+        <label for="tecnologias">Tecnologias</label>
+        <input id="tecnologias" type="text" formControlName="tecnologias"
+          placeholder="Angular, TypeScript, CSS" />
+        <small class="dica">Separe as tecnologias por vírgulas.</small>
+      </div>
+
+      <div class="campo">
+        <label for="link_github">Link do GitHub</label>
+        <input id="link_github" type="url" formControlName="link_github"
+          placeholder="https://github.com/usuario/repositorio" />
+        @if (form.controls.link_github.touched && form.controls.link_github.invalid) {
+          <small class="erro-campo">Informe um endereço que comece com http:// ou https://.</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="ano">Ano *</label>
+        <input id="ano" type="number" formControlName="ano" min="2000" max="2100" />
+        @if (form.controls.ano.touched && form.controls.ano.invalid) {
+          <small class="erro-campo">Informe um ano válido entre 2000 e 2100.</small>
+        }
+      </div>
+
+      <button class="botao-principal" type="submit" [disabled]="salvando">
+        @if (salvando) {
+          Salvando...
+        } @else {
+          {{ editandoId !== null ? 'Salvar alterações' : '+ Cadastrar projeto' }}
+        }
+      </button>
+    </form>
+  </section>
+
+  <section class="secao-lista">
+    <div class="titulo-secao">
+      <div>
+        <span class="etiqueta">GERENCIAMENTO</span>
+        <h3>Seus projetos</h3>
+      </div>
+      <span class="contador">{{ projetosFiltrados.length }} resultado(s)</span>
+    </div>
+
+    <div class="campo busca-projetos">
+      <label for="busca">Pesquisar projetos</label>
+      <input id="busca" type="search" [value]="busca"
+        (input)="busca = $any($event.target).value"
+        placeholder="Buscar por nome, descrição, tecnologia ou ano..." />
+    </div>
+
+    @if (carregando) {
+      <p class="estado-lista">Carregando projetos...</p>
+    } @else if (projetosFiltrados.length === 0) {
+      <div class="estado-vazio">
+        <span>⌕</span>
+        <h4>Nenhum projeto encontrado</h4>
+        <p>Experimente outro termo ou cadastre um novo projeto.</p>
+      </div>
+    } @else {
+      <div class="lista-projetos">
+        @for (projeto of projetosFiltrados; track projeto.id) {
+          <article class="linha-projeto">
+            <div class="projeto-conteudo">
+              <div class="projeto-titulo">
+                <h4>{{ projeto.nome }}</h4>
+                <span class="ano-badge">{{ projeto.ano }}</span>
+              </div>
+
+              <p class="projeto-descricao">
+                {{ projeto.descricao || 'Sem descrição cadastrada.' }}
+              </p>
+
+              @if (projeto.tecnologias) {
+                <div class="chips-tecnologias">
+                  @for (tec of tecnologiasDo(projeto); track $index) {
+                    @if (tec.trim()) {
+                      <span>{{ tec.trim() }}</span>
+                    }
+                  }
+                </div>
+              }
+
+              @if (projeto.link_github) {
+                <a class="link-repositorio" [href]="projeto.link_github"
+                  target="_blank" rel="noopener noreferrer">
+                  Ver repositório ↗
+                </a>
+              }
+            </div>
+
+            <div class="acoes-projeto">
+              <button type="button" class="botao-editar"
+                (click)="editar(projeto)">
+                Editar
+              </button>
+              <button type="button" class="botao-excluir"
+                (click)="excluir(projeto)"
+                [disabled]="excluindoId !== null">
+                {{ excluindoId === projeto.id ? 'Excluindo...' : 'Excluir' }}
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </section>
 </section>

@@ -1,12 +1,56 @@
-@if (carregando) { <p>Carregando catalogo...</p> }
-@if (erro) { <p>{{ erro }}</p> }
 
-@for (t of tecnologias; track t.id) {
-  <mat-card style="margin-bottom: 12px;">
-    <mat-card-header>
-      <mat-card-title>{{ t.nome }}</mat-card-title>
-      <mat-card-subtitle>{{ t.categoria }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>{{ t.descricao }}</mat-card-content>
-  </mat-card>
-}
+<section class="catalogo-container">
+  <header class="catalogo-cabecalho">
+    <span class="catalogo-etiqueta">BASE DE CONHECIMENTO</span>
+
+    <h1 class="catalogo-titulo">
+      Catálogo de <span>tecnologias.</span>
+    </h1>
+
+    <p class="catalogo-descricao">
+      Explore as tecnologias, ferramentas e conhecimentos
+      que fazem parte da minha jornada no desenvolvimento.
+    </p>
+  </header>
+
+  @if (carregando) {
+    <p class="catalogo-estado carregando" role="status">
+      Carregando catálogo de tecnologias...
+    </p>
+  }
+
+  @if (erro) {
+    <p class="catalogo-estado erro" role="alert">
+      {{ erro }}
+    </p>
+  }
+
+  @if (!carregando && !erro) {
+    <div class="catalogo-grade">
+      @for (t of tecnologias; track t.id) {
+        <article class="tecnologia-card">
+          <span class="tecnologia-numero">
+            TECNOLOGIA {{ t.id }}
+          </span>
+
+          <h2 class="tecnologia-nome">
+            {{ t.nome }}
+          </h2>
+
+          <span class="tecnologia-categoria">
+            {{ t.categoria }}
+          </span>
+
+          <p class="tecnologia-descricao">
+            {{ t.descricao || 'Descrição ainda não cadastrada.' }}
+          </p>
+        </article>
+      } @empty {
+        <div class="catalogo-vazio">
+          <strong>Nenhuma tecnologia cadastrada</strong>
+          As tecnologias adicionadas à base aparecerão aqui.
+        </div>
+      }
+    </div>
+  }
+</section>

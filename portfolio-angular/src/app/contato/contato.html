@@ -1,19 +1,140 @@
-<!-- src/app/contato/contato.html -->
-<h2>Fale comigo</h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label for="nome">Nome</label>
-  <input id="nome" type="text" formControlName="nome">
-  <label for="email">E-mail</label>
-  <input id="email" type="email" formControlName="email">
-  <label for="mensagem">Mensagem</label>
-  <textarea id="mensagem" formControlName="mensagem" rows="4"></textarea>
- 
- <a routerLink="/contato">Contato</a>
-  <!-- botao desabilita enquanto envia; troca o texto -->
-  <button type="submit" [disabled]="enviando">
-    {{ enviando ? 'Enviando...' : 'Enviar' }}
-  </button>
-</form>
-<!-- estados de retorno -->
-@if (sucesso) { <p class="ok">{{ sucesso }}</p> }
-@if (erro)    { <p class="erro">{{ erro }}</p> }
+
+<section class="contato-container">
+  <header class="contato-cabecalho">
+    <span class="contato-status">
+      <span class="status-ponto"></span>
+      CANAL DE COMUNICAÇÃO
+    </span>
+
+    <h2 class="contato-titulo">
+      Fale <span>comigo.</span>
+    </h2>
+
+    <p class="contato-subtitulo">
+      Tem uma ideia, uma dúvida ou uma oportunidade?
+      Envie uma mensagem. Vou ficar feliz em conversar!
+    </p>
+  </header>
+
+  <div class="contato-card">
+    <div class="contato-card-cabecalho">
+      <div>
+        <span class="card-identificador">CONTATO.EXE</span>
+        <h3>Envie sua mensagem</h3>
+        <p>Preencha os campos abaixo para entrar em contato.</p>
+      </div>
+
+      <div class="card-icone" aria-hidden="true">✉</div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="campo">
+        <label for="nome">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          formControlName="nome"
+          placeholder="Como você se chama?"
+          autocomplete="name"
+          [attr.aria-invalid]="form.controls.nome.touched && form.controls.nome.invalid"
+          aria-describedby="erro-nome"
+        />
+
+        @if (form.controls.nome.touched && form.controls.nome.invalid) {
+          <p class="erro-campo" id="erro-nome">
+            Informe seu nome com pelo menos 3 caracteres.
+          </p>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="voce@exemplo.com"
+          autocomplete="email"
+          [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid"
+          aria-describedby="erro-email"
+        />
+
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <p class="erro-campo" id="erro-email">
+            Informe um endereço de e-mail válido.
+          </p>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="mensagem">Mensagem</label>
+        <textarea
+          id="mensagem"
+          formControlName="mensagem"
+          rows="5"
+          placeholder="Escreva sua mensagem aqui..."
+          [attr.aria-invalid]="form.controls.mensagem.touched && form.controls.mensagem.invalid"
+          aria-describedby="erro-mensagem"
+        ></textarea>
+
+        @if (form.controls.mensagem.touched && form.controls.mensagem.invalid) {
+          <p class="erro-campo" id="erro-mensagem">
+            Escreva uma mensagem com pelo menos 10 caracteres.
+          </p>
+        }
+      </div>
+
+      @if (sucesso) {
+        <div class="alerta-sucesso" role="status" aria-live="polite">
+          <span aria-hidden="true">✓</span>
+          {{ sucesso }}
+        </div>
+      }
+
+      @if (erro) {
+        <div class="alerta-erro" role="alert">
+          <span aria-hidden="true">!</span>
+          {{ erro }}
+        </div>
+      }
+
+      <button
+        class="btn-enviar"
+        type="submit"
+        [disabled]="enviando"
+      >
+        <span>{{ enviando ? 'Enviando mensagem...' : 'Enviar mensagem' }}</span>
+        <span class="btn-seta" aria-hidden="true">
+          {{ enviando ? '…' : '→' }}
+        </span>
+      </button>
+
+      <p class="form-rodape">
+        <span class="rodape-ponto"></span>
+        Os campos são validados antes do envio.
+      </p>
+    </form>
+  </div>
+
+  <div class="contato-info">
+    <article class="info-item">
+      <span class="icone" aria-hidden="true">💻</span>
+      <h3>Desenvolvimento</h3>
+      <p>Projetos, tecnologia e programação.</p>
+    </article>
+
+    <article class="info-item">
+      <span class="icone" aria-hidden="true">🚀</span>
+      <h3>Novas ideias</h3>
+      <p>Vamos conversar sobre possibilidades.</p>
+    </article>
+  </div>
+
+  <footer class="contato-rodape">
+    <span>FELIPE MORAES</span>
+    <span class="rodape-separador">/</span>
+    <span>PORTFÓLIO PESSOAL</span>
+
+    <a routerLink="/" class="voltar-inicio">Voltar ao início ↗</a>
+  </footer>
+</section>

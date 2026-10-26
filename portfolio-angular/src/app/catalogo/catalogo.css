@@ -1,0 +1,314 @@
+
+:host {
+  display: block;
+
+  --catalogo-orange: #ff8700;
+  --catalogo-orange-light: #ffbb66;
+  --catalogo-bg: #0a0a0a;
+  --catalogo-card: #151515;
+  --catalogo-border: #2b2b2b;
+  --catalogo-text: #f5f5f5;
+  --catalogo-muted: #a1a1aa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Container principal */
+
+.catalogo-container {
+  width: min(100% - 32px, 1200px);
+  margin: 40px auto;
+  color: var(--catalogo-text);
+  animation: catalogo-entrada 0.45s ease both;
+}
+
+/* Cabeçalho */
+
+.catalogo-cabecalho {
+  position: relative;
+  margin-bottom: 30px;
+  padding: clamp(24px, 4vw, 40px);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 90% 20%,
+      rgb(255 135 0 / 11%),
+      transparent 38%
+    ),
+    linear-gradient(135deg, #191919, #0d0d0d);
+  border: 1px solid var(--catalogo-border);
+  border-left: 4px solid var(--catalogo-orange);
+  border-radius: 16px;
+}
+
+.catalogo-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 16px;
+  color: var(--catalogo-orange-light);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.catalogo-etiqueta::before {
+  width: 7px;
+  height: 7px;
+  content: "";
+  background: var(--catalogo-orange);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgb(255 135 0 / 60%);
+}
+
+.catalogo-titulo {
+  margin: 0 0 12px;
+  color: var(--catalogo-text);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.15;
+}
+
+.catalogo-titulo span {
+  color: var(--catalogo-orange);
+  text-shadow: 0 0 24px rgb(255 135 0 / 15%);
+}
+
+.catalogo-descricao {
+  max-width: 650px;
+  margin: 0;
+  color: var(--catalogo-muted);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+/* Grade dos cartões */
+
+.catalogo-grade {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* Cartão de tecnologia */
+
+.tecnologia-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 200px;
+  padding: 24px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #191919, #101010);
+  border: 1px solid var(--catalogo-border);
+  border-radius: 13px;
+  box-shadow: 0 8px 25px rgb(0 0 0 / 18%);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.tecnologia-card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45px;
+  height: 3px;
+  content: "";
+  background: var(--catalogo-orange);
+  transition: width 0.25s ease;
+}
+
+.tecnologia-card:hover {
+  background: linear-gradient(145deg, #202020, #121212);
+  border-color: rgb(255 135 0 / 55%);
+  box-shadow:
+    0 14px 32px rgb(0 0 0 / 30%),
+    0 0 20px rgb(255 135 0 / 5%);
+  transform: translateY(-5px);
+}
+
+.tecnologia-card:hover::before {
+  width: 100%;
+}
+
+/* Identificação */
+
+.tecnologia-numero {
+  align-self: flex-start;
+  margin-bottom: 20px;
+  padding: 6px 9px;
+  color: var(--catalogo-orange-light);
+  background: rgb(255 135 0 / 8%);
+  border: 1px solid rgb(255 135 0 / 18%);
+  border-radius: 5px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.tecnologia-nome {
+  margin: 0 0 10px;
+  color: var(--catalogo-text);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.tecnologia-categoria {
+  display: inline-block;
+  align-self: flex-start;
+  max-width: 100%;
+  margin-bottom: 16px;
+  padding: 6px 10px;
+  color: var(--catalogo-orange-light);
+  background: #24201a;
+  border: 1px solid #393027;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.tecnologia-descricao {
+  margin: 0;
+  color: var(--catalogo-muted);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+/* Estados de carregamento e erro */
+
+.catalogo-estado {
+  padding: 24px;
+  color: var(--catalogo-muted);
+  background: var(--catalogo-card);
+  border: 1px solid var(--catalogo-border);
+  border-radius: 10px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.catalogo-estado.erro {
+  color: #ff9292;
+  background: rgb(255 82 82 / 6%);
+  border-color: rgb(255 82 82 / 25%);
+}
+
+.catalogo-estado.carregando::before {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  margin-right: 10px;
+  content: "";
+  vertical-align: -2px;
+  border: 2px solid #444;
+  border-top-color: var(--catalogo-orange);
+  border-radius: 50%;
+  animation: catalogo-giro 0.8s linear infinite;
+}
+
+/* Catálogo vazio */
+
+.catalogo-vazio {
+  grid-column: 1 / -1;
+  padding: 32px 20px;
+  color: var(--catalogo-muted);
+  background: var(--catalogo-card);
+  border: 1px dashed #414141;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.catalogo-vazio strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--catalogo-text);
+  font-size: 1.1rem;
+}
+
+/* Animações */
+
+@keyframes catalogo-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes catalogo-giro {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tablets */
+
+@media (max-width: 950px) {
+  .catalogo-grade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Celulares */
+
+@media (max-width: 600px) {
+  .catalogo-container {
+    width: calc(100% - 20px);
+    margin: 20px auto;
+  }
+
+  .catalogo-cabecalho {
+    padding: 23px 18px;
+    border-radius: 12px;
+  }
+
+  .catalogo-titulo {
+    letter-spacing: -0.8px;
+  }
+
+  .catalogo-descricao {
+    font-size: 0.9rem;
+  }
+
+  .catalogo-grade {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .tecnologia-card {
+    min-height: auto;
+    padding: 21px;
+  }
+
+  .tecnologia-numero {
+    margin-bottom: 15px;
+  }
+}
+
+/* Respeita a preferência por menos movimento */
+
+@media (prefers-reduced-motion: reduce) {
+  .catalogo-container,
+  .catalogo-container *,
+  .catalogo-container *::before,
+  .catalogo-container *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

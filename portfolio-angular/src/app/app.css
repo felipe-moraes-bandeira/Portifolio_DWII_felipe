@@ -1,66 +1,437 @@
-mat-toolbar {
-  background: #111 !important;
-  color: white !important;
 
-  border-bottom: 3px solid #d90429;
+/* ==========================================
+   MCLAREN TURBO UI — APP SHELL
+========================================== */
 
-  box-shadow:
-    0 0 10px rgba(217,4,41,.3),
-    0 4px 15px rgba(0,0,0,.5);
+:host {
+  display: block;
+
+  --app-bg: #0a0a0a;
+  --app-surface: #111111;
+  --app-card: #151515;
+  --app-orange: #ff8700;
+  --app-orange-light: #ffbb66;
+  --app-text: #f5f5f5;
+  --app-muted: #a1a1aa;
+  --app-border: #292929;
+}
+
+/* Estrutura geral */
+
+.container-app {
+  min-height: 100vh;
+  background: var(--app-bg);
+}
+
+mat-sidenav-content {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: transparent;
+}
+
+/* Barra superior */
+
+.barra-superior {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  min-height: 76px;
+  padding: 0 clamp(16px, 4vw, 48px);
+
+  color: var(--app-text) !important;
+  background: rgba(14, 14, 14, 0.92) !important;
+
+  border-bottom: 1px solid var(--app-border);
+  box-shadow: 0 5px 24px rgba(0, 0, 0, 0.24);
+
+  backdrop-filter: blur(16px);
+}
+
+/* Marca */
+
+.marca-site {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  color: var(--app-text) !important;
+  text-decoration: none;
+}
+
+.marca-simbolo {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+
+  color: #111;
+  background: var(--app-orange);
+
+  border-radius: 10px;
+  font-size: 1.45rem;
+  font-weight: 800;
+  font-style: italic;
+
+  box-shadow: 0 0 22px rgba(255, 135, 0, 0.13);
+
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.marca-site:hover .marca-simbolo {
+  transform: skewX(-5deg) scale(1.05);
+  box-shadow: 0 0 28px rgba(255, 135, 0, 0.27);
+}
+
+.marca-texto {
+  display: flex;
+  flex-direction: column;
+
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  line-height: 1.2;
+}
+
+.marca-texto small {
+  margin-top: 5px;
+  color: var(--app-muted);
+
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+.marca-destaque {
+  color: var(--app-orange);
 }
 
 .espacador {
   flex: 1 1 auto;
 }
 
-a[mat-button] {
-  color: white !important;
-  transition: .3s;
+/* Navegação desktop */
+
+.menu-desktop {
+  display: flex;
+  height: 76px;
+  align-items: center;
+  gap: 4px;
 }
 
-a[mat-button]:hover {
-  color: #d90429 !important;
+.menu-desktop a[mat-button] {
+  position: relative;
+
+  min-width: auto;
+  height: 44px;
+  padding-inline: 13px;
+
+  color: var(--app-muted) !important;
+  border-radius: 8px;
+
+  font-size: 0.88rem;
+  font-weight: 500;
+
+  transition:
+    color 200ms ease,
+    background 200ms ease;
 }
 
-.ativo {
-  color: #d90429 !important;
-  font-weight: bold;
+.menu-desktop a[mat-button]::after {
+  position: absolute;
+  right: 13px;
+  bottom: 3px;
+  left: 13px;
+
+  height: 2px;
+  border-radius: 2px;
+
+  background: var(--app-orange);
+  content: "";
+
+  transform: scaleX(0);
+  transform-origin: center;
+
+  transition: transform 200ms ease;
+}
+
+.menu-desktop a[mat-button]:hover {
+  color: var(--app-orange-light) !important;
+  background: rgba(255, 135, 0, 0.06);
+}
+
+.menu-desktop a[mat-button].ativo {
+  color: var(--app-orange) !important;
+}
+
+.menu-desktop a[mat-button].ativo::after {
+  transform: scaleX(1);
+}
+
+/* Botão do menu móvel */
+
+.botao-menu-mobile {
+  display: none;
+  margin-right: 10px;
+
+  color: var(--app-orange) !important;
+  border: 1px solid var(--app-border);
+  border-radius: 10px;
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.botao-menu-mobile:hover {
+  background: rgba(255, 135, 0, 0.09);
+  border-color: var(--app-orange);
+}
+
+.botao-menu-mobile mat-icon {
+  display: grid;
+  place-items: center;
 }
 
 /* Conteúdo das páginas */
-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 24px;
-}
 
-.container-app {
-  height: 100vh;
-}
+.conteudo-principal {
+  flex: 1;
 
-mat-sidenav-container {
-  height: 100vh;
-}
-
-mat-sidenav-content {
-  min-height: 100vh;
-}
-mat-sidenav {
-  width: 250px;
-  background: #151515;
-  color: white;
-}
-.titulo-menu {
-  color: #d90429;
-  margin: 20px;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-mat-sidenav a {
-  display: block;
   width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+
+  padding: clamp(20px, 3vw, 36px);
+  animation: conteudo-entrada 350ms ease both;
+}
+
+/* Menu lateral */
+
+.menu-lateral {
+  width: min(310px, 86vw);
+  color: var(--app-text);
+  background: #101010;
+
+  border-right: 1px solid var(--app-border);
+  box-shadow: 12px 0 36px rgba(0, 0, 0, 0.3);
+}
+
+.menu-cabecalho {
+  padding: 32px 24px 26px;
+
+  border-bottom: 1px solid var(--app-border);
+
+  background:
+    radial-gradient(
+      ellipse at top left,
+      rgba(255, 135, 0, 0.10),
+      transparent 70%
+    );
+}
+
+.marca-indicador {
+  display: block;
+  width: 36px;
+  height: 4px;
+  margin-bottom: 18px;
+
+  background: var(--app-orange);
+  border-radius: 5px;
+}
+
+.titulo-menu {
+  margin: 0 0 8px;
+
+  color: var(--app-text);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.subtitulo-menu {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 0.82rem;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 22px 14px;
+}
+
+.menu-links a[mat-button] {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 13px;
+
+  padding-inline: 14px;
+
+  color: var(--app-muted) !important;
+  border-radius: 9px;
+
   text-align: left;
-  color: white !important;
-  margin-bottom: 10px;
+
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.menu-links a[mat-button] mat-icon {
+  color: inherit;
+  transition: color 180ms ease;
+}
+
+.menu-links a[mat-button]:hover {
+  color: var(--app-orange-light) !important;
+  background: rgba(255, 135, 0, 0.07);
+  transform: translateX(3px);
+}
+
+.menu-links a[mat-button].ativo {
+  color: var(--app-orange) !important;
+  background: rgba(255, 135, 0, 0.10);
+  box-shadow: inset 3px 0 var(--app-orange);
+}
+
+.menu-divisor {
+  height: 1px;
+  margin: 12px 4px;
+  background: var(--app-border);
+}
+
+.menu-rodape {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin: 10px 20px 20px;
+  padding-top: 18px;
+
+  color: var(--app-muted);
+  border-top: 1px solid var(--app-border);
+
+  font-size: 0.8rem;
+}
+
+.status-indicador {
+  width: 8px;
+  height: 8px;
+
+  background: var(--app-orange);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 135, 0, 0.35);
+}
+
+/* Rodapé */
+
+.rodape-site {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 22px 20px;
+
+  color: var(--app-muted);
+  border-top: 1px solid var(--app-border);
+
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.rodape-separador {
+  color: var(--app-orange);
+}
+
+/* Entrada suave */
+
+@keyframes conteudo-entrada {
+  from {
+    opacity: 0.75;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tablet e celular */
+
+@media (max-width: 950px) {
+  .barra-superior {
+    min-height: 68px;
+    padding-inline: 18px;
+  }
+
+  .menu-desktop {
+    height: 68px;
+    gap: 0;
+  }
+
+  .menu-desktop a[mat-button] {
+    padding-inline: 9px;
+    font-size: 0.82rem;
+  }
+
+  .conteudo-principal {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .barra-superior {
+    min-height: 66px;
+    padding-inline: 14px;
+  }
+
+  .botao-menu-mobile {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .menu-desktop {
+    display: none;
+  }
+
+  .marca-simbolo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .conteudo-principal {
+    padding: 18px 14px;
+  }
+
+  .rodape-site {
+    gap: 6px;
+    padding: 18px 12px;
+  }
+}
+
+/* Acessibilidade */
+
+@media (prefers-reduced-motion: reduce) {
+  .conteudo-principal {
+    animation: none;
+  }
+
+  .marca-simbolo,
+  .menu-desktop a,
+  .menu-links a {
+    transition: none;
+  }
 }

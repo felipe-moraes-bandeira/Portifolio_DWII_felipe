@@ -1,9 +1,111 @@
-<mat-card>
-<mat-card-header>
-<mat-card-title>Olá, eu sou Felipe Moraes </mat-card-title>
-<mat-card-subtitle>tecnico em informatica - IFPR CRPG</mat-card-subtitle>
-</mat-card-header>
-<mat-card-content>
-    <p>Bem-vindo ao meu portfilio, agora construido com Angular.</p>
-</mat-card-content>
-</mat-card>
+
+<section class="home-container">
+
+  <div class="home-status">
+    <span class="status-dot"></span>
+    PORTFÓLIO • IFPR
+  </div>
+
+  <div class="home-hero">
+
+    <div class="hero-content">
+
+      <p class="hero-eyebrow">OLÁ, SEJA BEM-VINDO AO MEU UNIVERSO</p>
+
+      <h1>
+        Eu sou <span class="nome-destaque">Felipe Moraes</span>
+      </h1>
+
+      <h2>
+        Técnico em Informática
+        <span class="separador-titulo">/</span>
+        <span class="curso-destaque">Desenvolvedor em formação</span>
+      </h2>
+
+      <p class="hero-descricao">
+        Estudante do IFPR — Campus Ponta Grossa, interessado em
+        tecnologia, programação e desenvolvimento de soluções digitais.
+        Este é o espaço onde apresento minha trajetória, meus projetos
+        e minha evolução na área da informática.
+      </p>
+
+      <div class="hero-acoes">
+
+        <a
+          mat-raised-button
+          color="primary"
+          class="botao-projetos"
+          routerLink="/projetos"
+        >
+          <mat-icon>terminal</mat-icon>
+          Conhecer projetos
+        </a>
+
+        <a
+          mat-stroked-button
+          class="botao-contato"
+          routerLink="/contato"
+        >
+          <mat-icon>mail_outline</mat-icon>
+          Entrar em contato
+        </a>
+
+      </div>
+
+      <div class="hero-linha"></div>
+
+      <div class="hero-informacoes">
+
+        <div class="info-item">
+          <span class="info-numero">IFPR</span>
+          <span class="info-legenda">Campus Ponta Grossa</span>
+        </div>
+
+        <div class="info-item">
+          <span class="info-numero">DEV</span>
+          <span class="info-legenda">Aprendizado contínuo</span>
+        </div>
+
+        <div class="info-item">
+          <span class="info-numero">WEB</span>
+          <span class="info-legenda">Desenvolvimento web</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+
+      <div class="visual-grade"></div>
+
+      <div class="visual-circulo circulo-externo"></div>
+      <div class="visual-circulo circulo-interno"></div>
+
+      <div class="visual-centro">
+        <span class="visual-letra">F</span>
+        <span class="visual-ponto"></span>
+      </div>
+
+      <div class="visual-etiqueta etiqueta-superior">
+        <span class="etiqueta-ponto"></span>
+        PORTFOLIO.EXE
+      </div>
+
+      <div class="visual-etiqueta etiqueta-inferior">
+        <span>STATUS</span>
+        <strong>EM EVOLUÇÃO</strong>
+      </div>
+
+      <div class="visual-linha"></div>
+
+    </div>
+
+  </div>
+
+  <div class="home-aviso">
+    <mat-icon>keyboard_arrow_down</mat-icon>
+    <span>Explore o portfólio e conheça meus projetos</span>
+  </div>
+
+</section>

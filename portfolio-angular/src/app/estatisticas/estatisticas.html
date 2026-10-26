@@ -1,0 +1,142 @@
+
+<section class="estatisticas-container">
+  <header class="pagina-cabecalho">
+    <div>
+      <span class="sobretitulo">DEVELOPER ANALYTICS / 01</span>
+      <h1>Estatísticas<span>.</span></h1>
+      <p>
+        Uma visão geral dos projetos, das tecnologias e da minha evolução
+        como desenvolvedor.
+      </p>
+    </div>
+
+    <div class="status-online">
+      <span class="status-ponto"></span>
+      DADOS DO PORTFÓLIO
+    </div>
+  </header>
+
+  @if (carregando) {
+    <div class="estado">
+      <span class="loader"></span>
+      Carregando estatísticas...
+    </div>
+  } @else if (erro) {
+    <div class="estado estado-erro">
+      {{ erro }}
+    </div>
+  } @else {
+    <section class="resumo-grid">
+      <article class="stat-card">
+        <span class="stat-icone">▤</span>
+        <span class="stat-label">PROJETOS CADASTRADOS</span>
+        <strong>{{ projetos.length }}</strong>
+        <small>Projetos no portfólio</small>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icone">⌘</span>
+        <span class="stat-label">TECNOLOGIAS</span>
+        <strong>{{ totalTecnologias }}</strong>
+        <small>Tecnologias identificadas</small>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icone">◷</span>
+        <span class="stat-label">ANOS REGISTRADOS</span>
+        <strong>{{ anos.length }}</strong>
+        <small>Anos com projetos cadastrados</small>
+      </article>
+    </section>
+
+    <section class="painel">
+      <div class="painel-cabecalho">
+        <div>
+          <span class="sobretitulo">TECH STACK</span>
+          <h2>Linguagens e tecnologias</h2>
+          <p>Frequência de uso em projetos cadastrados.</p>
+        </div>
+        <span class="contador">{{ totalTecnologias }} itens</span>
+      </div>
+
+      @if (tecnologias.length === 0) {
+        <div class="estado-vazio">
+          Nenhuma tecnologia foi encontrada nos projetos.
+          Adicione as tecnologias nos cadastros para visualizar este gráfico.
+        </div>
+      } @else {
+        <div class="tecnologias-lista">
+          @for (tech of tecnologias; track trackTecnologia($index, tech)) {
+            <article class="tecnologia-item">
+              <div class="tecnologia-info">
+                <span class="tecnologia-nome">{{ tech.nome }}</span>
+                <span class="tecnologia-quantidade">
+                  {{ tech.quantidade }}
+                  {{ tech.quantidade === 1 ? 'projeto' : 'projetos' }}
+                </span>
+              </div>
+
+              <div
+                class="barra-fundo"
+                role="progressbar"
+                [attr.aria-label]="'Uso de ' + tech.nome"
+                [attr.aria-valuenow]="tech.percentual"
+                aria-valuemin="0"
+                aria-valuemax="100">
+                <div
+                  class="barra-preenchida"
+                  [style.width.%]="tech.percentual">
+                </div>
+              </div>
+
+              <div class="tecnologia-projetos">
+                @for (nomeProjeto of tech.projetos; track nomeProjeto) {
+                  <span class="tag-projeto">{{ nomeProjeto }}</span>
+                }
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </section>
+
+    <section class="painel">
+      <div class="painel-cabecalho">
+        <div>
+          <span class="sobretitulo">PROJECT TIMELINE</span>
+          <h2>Projetos por ano</h2>
+          <p>Distribuição dos projetos cadastrados ao longo do tempo.</p>
+        </div>
+      </div>
+
+      @if (anos.length === 0) {
+        <div class="estado-vazio">
+          Nenhum ano foi registrado nos projetos.
+        </div>
+      } @else {
+        <div class="grafico-anos">
+          @for (item of anos; track trackAno($index, item)) {
+            <div class="ano-coluna">
+              <span class="ano-quantidade">{{ item.quantidade }}</span>
+
+              <div class="coluna-fundo">
+                <div
+                  class="coluna-preenchida"
+                  [style.height.%]="(item.quantidade / maiorQuantidadePorAno) * 100">
+                </div>
+              </div>
+
+              <span class="ano-label">{{ item.ano }}</span>
+            </div>
+          }
+        </div>
+      }
+    </section>
+
+    <footer class="nota-estatisticas">
+      <span class="status-ponto"></span>
+      Estatísticas calculadas a partir dos projetos retornados pela API.
+      Não representam commits ou contribuições do GitHub.
+    </footer>
+  }
+</section>

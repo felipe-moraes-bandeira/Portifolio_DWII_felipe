@@ -1,80 +1,162 @@
+
 <mat-sidenav-container class="container-app">
 
- <mat-sidenav #menu mode="over" [opened]="false">
+  <!-- Menu lateral para dispositivos móveis -->
+  <mat-sidenav
+    #menu
+    class="menu-lateral"
+    mode="over"
+    [opened]="false"
+    aria-label="Menu de navegação"
+  >
+    <div class="menu-cabecalho">
+      <span class="marca-indicador"></span>
+      <h2 class="titulo-menu">MEU PORTFÓLIO</h2>
+      <p class="subtitulo-menu">Desenvolvimento em movimento.</p>
+    </div>
 
-    <h2 class="titulo-menu">Meu Portfólio</h2>
+    <nav class="menu-links" aria-label="Navegação principal móvel">
 
-    <a mat-button routerLink="/" (click)="menu.close()">
-      Início
-    </a>
+      <a mat-button routerLink="/"
+         routerLinkActive="ativo"
+         [routerLinkActiveOptions]="{ exact: true }"
+         (click)="menu.close()">
+        <mat-icon>home</mat-icon>
+        <span>Início</span>
+      </a>
 
-    <a mat-button routerLink="/sobre" (click)="menu.close()">
-      Sobre
-    </a>
+      <a mat-button routerLink="/sobre"
+         routerLinkActive="ativo"
+         (click)="menu.close()">
+        <mat-icon>person</mat-icon>
+        <span>Sobre</span>
+      </a>
 
-    <a mat-button routerLink="/projetos" (click)="menu.close()">
-      Projetos
-    </a>
+      <a mat-button routerLink="/projetos"
+         routerLinkActive="ativo"
+         (click)="menu.close()">
+        <mat-icon>code</mat-icon>
+        <span>Projetos</span>
+      </a>
 
-    <a mat-button routerLink="/contato" (click)="menu.close()">
-      Contato
-    </a>
+      <a mat-button routerLink="/contato"
+         routerLinkActive="ativo"
+         (click)="menu.close()">
+        <mat-icon>mail</mat-icon>
+        <span>Contato</span>
+      </a>
 
-    <a mat-button routerLink="/catalogo" routerLinkActive="ativo">Catálogo</a>
-  
-  <a mat-button routerLink="/gestao" routerLinkActive="ativo">Gestão</a>
+      <div class="menu-divisor"></div>
+
+      <a mat-button routerLink="/catalogo"
+         routerLinkActive="ativo"
+         (click)="menu.close()">
+        <mat-icon>directions_car</mat-icon>
+        <span>Catálogo</span>
+      </a>
+
+      <a mat-button routerLink="/gestao"
+         routerLinkActive="ativo"
+         (click)="menu.close()">
+        <mat-icon>dashboard</mat-icon>
+        <span>Gestão</span>
+      </a>
+
+    </nav>
+
+    <div class="menu-rodape">
+      <span class="status-indicador"></span>
+      Portfólio pessoal
+    </div>
+
   </mat-sidenav>
 
   <mat-sidenav-content>
 
-    <mat-toolbar>
+    <!-- Barra superior -->
+    <mat-toolbar class="barra-superior">
 
-      <button mat-icon-button (click)="menu.toggle()">
-        ☰
+      <button
+        mat-icon-button
+        class="botao-menu-mobile"
+        (click)="menu.toggle()"
+        aria-label="Abrir ou fechar menu de navegação"
+        [attr.aria-expanded]="menu.opened"
+      >
+        <mat-icon>{{ menu.opened ? 'close' : 'menu' }}</mat-icon>
       </button>
 
-      <span>Meu Portfólio</span>
+      <a
+        class="marca-site"
+        routerLink="/"
+        aria-label="Ir para a página inicial"
+      >
+        <span class="marca-simbolo">F</span>
+
+        <span class="marca-texto">
+          FELIPE<span class="marca-destaque">.</span>
+          <small>PORTFÓLIO</small>
+        </span>
+      </a>
 
       <span class="espacador"></span>
 
-      <div class="menu-desktop">
+      <nav class="menu-desktop" aria-label="Navegação principal">
 
-        <a
-          mat-button
-          routerLink="/"
-          routerLinkActive="ativo"
-          [routerLinkActiveOptions]="{ exact: true }">
+
+
+        <a mat-button routerLink="/estatisticas"
+   routerLinkActive="ativo"
+   (click)="menu.close()">
+  <mat-icon>bar_chart</mat-icon>
+  <span>Estatísticas</span>
+</a>
+
+        <a mat-button routerLink="/"
+           routerLinkActive="ativo"
+           [routerLinkActiveOptions]="{ exact: true }">
           Início
         </a>
 
-        <a
-          mat-button
-          routerLink="/sobre"
-          routerLinkActive="ativo">
+        <a mat-button routerLink="/sobre"
+           routerLinkActive="ativo">
           Sobre
         </a>
 
-        <a
-          mat-button
-          routerLink="/projetos"
-          routerLinkActive="ativo">
+        <a mat-button routerLink="/projetos"
+           routerLinkActive="ativo">
           Projetos
         </a>
 
-        <a
-          mat-button
-          routerLink="/contato"
-          routerLinkActive="ativo">
+        <a mat-button routerLink="/contato"
+           routerLinkActive="ativo">
           Contato
         </a>
 
-      </div>
+        <a mat-button routerLink="/catalogo"
+           routerLinkActive="ativo">
+          Catálogo
+        </a>
+
+        <a mat-button routerLink="/gestao"
+           routerLinkActive="ativo">
+          Gestão
+        </a>
+
+      </nav>
 
     </mat-toolbar>
 
-    <main>
+    <!-- Conteúdo carregado pelo Angular Router -->
+    <main class="conteudo-principal">
       <router-outlet></router-outlet>
     </main>
+
+    <footer class="rodape-site">
+      <span>© {{ anoAtual }} Felipe Moraes</span>
+      <span class="rodape-separador">/</span>
+      <span>Desenvolvido com dedicação.</span>
+    </footer>
 
   </mat-sidenav-content>
 
