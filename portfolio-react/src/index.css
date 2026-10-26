@@ -1,0 +1,248 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: 'Inter', sans-serif;
+  color: #f5f7f5;
+  background: #08110b;
+
+  --verde: #16803c;
+  --verde-escuro: #123d25;
+  --amarelo: #ffdf00;
+  --azul: #003da5;
+  --fundo: #08110b;
+  --card: #111813;
+  --texto: #f5f7f5;
+  --texto-suave: #a8b6aa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top right, #123d254d, transparent 45%),
+    var(--fundo);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 22px 7%;
+  background: #08110bf2;
+  border-bottom: 2px solid var(--verde);
+  box-shadow: 0 4px 24px #00000055;
+  backdrop-filter: blur(12px);
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--amarelo);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+nav a {
+  padding: 10px 14px;
+  color: var(--texto);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background 0.25s, color 0.25s, transform 0.25s;
+}
+
+nav a:hover {
+  color: #08110b;
+  background: var(--amarelo);
+  transform: translateY(-2px);
+}
+
+main {
+  flex: 1;
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+.eyebrow {
+  color: var(--amarelo);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+h2 {
+  margin-bottom: 30px;
+  color: var(--texto);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 75px;
+  height: 4px;
+  margin-top: 12px;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    var(--verde),
+    var(--amarelo),
+    var(--azul)
+  );
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 24px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 26px;
+  background: linear-gradient(145deg, #162119, var(--card));
+  border: 1px solid #31513b;
+  border-top: 4px solid var(--verde);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px #00000030;
+  animation: surgir 0.55s ease both;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  border-color: var(--amarelo);
+  box-shadow: 0 12px 32px #16803c30;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--amarelo);
+  font-size: 1.25rem;
+}
+
+.card p {
+  color: var(--texto-suave);
+  line-height: 1.7;
+}
+
+.card .meta {
+  color: #91d8a6;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 11px 16px;
+  color: #08110b;
+  background: var(--amarelo);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 800;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.card a:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+footer {
+  padding: 24px;
+  text-align: center;
+  color: var(--texto-suave);
+  background: #050a06;
+  border-top: 1px solid #31513b;
+}
+
+footer p {
+  margin: 0;
+}
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 650px) {
+  header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: center;
+  }
+
+  main {
+    padding: 38px 18px;
+  }
+
+  .card {
+    padding: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.pagina-inicial {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+.pagina-inicial::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: url("/img/plBolsonaro.jpg") center /  contain no-repeat;
+  opacity: 0.25;
+  pointer-events: none;
+}
