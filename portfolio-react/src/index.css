@@ -246,3 +246,93 @@ footer p {
   opacity: 0.25;
   pointer-events: none;
 }
+/* Cole este bloco no FINAL do seu src/index.css */
+
+/* rodapé sempre embaixo */
+.pagina-inicial {
+  display: flex;
+  flex-direction: column;
+}
+
+/* link ativo do menu */
+nav a.active {
+  color: #08110b;
+  background: var(--amarelo);
+}
+
+/* textos e botões das páginas Início e Sobre */
+.texto {
+  max-width: 65ch;
+  color: var(--texto-suave);
+  line-height: 1.8;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.botao {
+  padding: 12px 20px;
+  color: #08110b;
+  background: var(--amarelo);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.botao-secundario {
+  color: var(--texto);
+  background: transparent;
+  border: 2px solid var(--verde);
+}
+
+/* mensagem de erro */
+.erro {
+  color: #ff8a8a;
+}
+
+/* formulário de contato */
+.contato form {
+  display: grid;
+  gap: 18px;
+  max-width: 560px;
+}
+
+.contato label {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.contato input,
+.contato textarea {
+  padding: 12px;
+  color: var(--texto);
+  background: var(--card);
+  border: 1px solid #31513b;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.contato textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.contato button {
+  justify-self: start;
+  padding: 12px 22px;
+  color: #08110b;
+  background: var(--amarelo);
+  border: 0;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.contato .aviso {
+  color: #91d8a6;
+}
