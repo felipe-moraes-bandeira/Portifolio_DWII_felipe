@@ -6,7 +6,7 @@ function Cabecalho() {
       <h1>Meu Portfólio</h1>
       <nav>
         <NavLink to="/" end>Início</NavLink>
-    
+        <NavLink to="/gestao">Gestão</NavLink>
         <NavLink to="/projetos">Projetos</NavLink>
         <NavLink to="/contato">Contato</NavLink>
       </nav>

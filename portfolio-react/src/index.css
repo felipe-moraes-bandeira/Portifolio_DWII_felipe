@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
@@ -242,7 +241,10 @@ footer p {
   inset: 0;
   z-index: -1;
 
-  background: url("/img/plBolsonaro.jpg") center /  contain no-repeat;
+  /* DESATIVADO: imagem enorme estourava a memoria do navegador.
+     Reative so com uma imagem pequena (ate ~300 KB, ~1600px de largura),
+     de preferencia .webp ou .jpg comprimido. */
+  /* background: url("/img/plBolsonaro.jpg") center / contain no-repeat; */
   opacity: 0.25;
   pointer-events: none;
 }

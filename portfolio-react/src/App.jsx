@@ -5,6 +5,7 @@ import Inicio from './Inicio.jsx';
 
 import Projetos from './Projetos.jsx';
 import Contato from './Contato.jsx';
+import NaoEncontrada from './NaoEncontrada.jsx';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           
           <Route path="/projetos" element={<Projetos />} />
           <Route path="/contato" element={<Contato />} />
-          <Route path="*" element={<p>Página não encontrada.</p>} />
+          <Route path="*" element={<NaoEncontrada />} />
         </Routes>
       </main>
 
